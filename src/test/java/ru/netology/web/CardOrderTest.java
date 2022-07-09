@@ -17,28 +17,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CardOrderTest {
 
-    private static WebDriver driver;
-    @BeforeAll
-    static void setupAll() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
+    WebDriver driver;
 
-    }
+    WebDriverManager wdm = WebDriverManager.chromedriver().browserInDocker()
+            .enableVnc().enableRecording();
 
     @BeforeEach
     void setup() {
-        driver = new ChromeDriver();
+        driver = wdm.create();
     }
 
     @AfterEach
-    void close() {
-        driver.quit ();
-        driver = null;
-
+    void teardown() {
+        wdm.quit();
     }
 
     @Test
