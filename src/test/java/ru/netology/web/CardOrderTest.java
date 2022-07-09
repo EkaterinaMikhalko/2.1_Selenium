@@ -19,17 +19,15 @@ class CardOrderTest {
 
     WebDriver driver;
 
-    WebDriverManager wdm = WebDriverManager.chromedriver().browserInDocker()
-            .enableVnc().enableRecording();
-
     @BeforeEach
     void setup() {
-        driver = wdm.create();
+        driver = WebDriverManager.chromedriver().create();
     }
 
     @AfterEach
-    void teardown() {
-        wdm.quit();
+    void close() {
+        driver.quit ();
+
     }
 
     @Test
